@@ -1,17 +1,19 @@
-package org.example;
+package org.example.servlets;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
 
 public class MainServlet extends HttpServlet {
 
@@ -20,15 +22,27 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
+        Cookie[] cookie = req.getCookies();
+        String userName=checkCookie(cookie);
+        if (userName.length()==0){
+            req.getRequestDispatcher("/aut").forward(req, resp);
+        }
         String path = req.getParameter("path");
+
         if (path == null) {
-            path = "/";
+            checkDir(userName);
+            path = "C:/Users/ivanw/Desktop/filemanager/" + userName;
         }
 
 
+        if (!checkOwner(path, userName)){
+            path = "C:/Users/ivanw/Desktop/filemanager/" + userName;
+            req.getRequestDispatcher("mypage.jsp").forward(req, resp);
+            System.out.println("not owner");
+        }
+
         File currentPath = new File(path);
-        File testPath = new File(path);
+
 
         if (currentPath.isDirectory()) {
             showFiles(req, currentPath);
@@ -71,6 +85,37 @@ public class MainServlet extends HttpServlet {
                 out.write(buffer, 0, numBytesRead);
             }
         }
+    }
+
+    private String checkCookie(Cookie[] cookies) {
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if ("UserName".equals(c.getName())) {
+
+                    return c.getValue();
+
+                }
+            }
+        }
+        return "";
+    }
+    private void checkDir(String userName){
+        Path path = Paths.get("C:/Users/ivanw/Desktop/filemanager/"+userName);
+        if(!Files.exists(path)){
+        File directory = new File("C:/Users/ivanw/Desktop/filemanager/"+userName);
+        directory.mkdir();
+    }
+    }
+    private boolean checkOwner(String path,String userName){
+
+
+        if (path.contains("C:/Users/ivanw/Desktop/filemanager/"+userName)){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
 

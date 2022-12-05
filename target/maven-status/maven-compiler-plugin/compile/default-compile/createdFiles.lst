@@ -1,1 +1,5 @@
-org\example\MainServlet.class
+org\example\accounts\UserProfile.class
+org\example\servlets\MainServlet.class
+org\example\servlets\RegServlet.class
+org\example\accounts\AccountService.class
+org\example\servlets\AutServlet.class

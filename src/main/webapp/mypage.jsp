@@ -10,6 +10,9 @@
 <hr>
 
 <hr>
+<form action="exit" method="GET">
+  <input type="submit" value="Exit" />
+</form>
 
 <h1>${currentPath}</h1>
 <h1>${date}</h1>
