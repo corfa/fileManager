@@ -30,12 +30,13 @@ public class DataBase {
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         preparedStatement.setString(1, userName);
         ResultSet resultSet = preparedStatement.executeQuery();
-        int id=0;
+        String  id="";
         while(resultSet.next()){
-            id = resultSet.getInt("id");
+            System.out.println();
+            id = resultSet.getString("userName");
         }
 
-        if (id==0){
+        if (id==""){
             return false;
         }
         else{

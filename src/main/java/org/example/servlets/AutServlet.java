@@ -37,7 +37,7 @@ public class AutServlet extends HttpServlet {
         }
         if(res!=false){
             System.out.println(accountService.getUserByLogin(req.getParameter("username")));
-            resp.sendRedirect("http://localhost:8080/untitled3_war/");
+            resp.sendRedirect("http://localhost:8080/com_devcolibri_servlet_war/");
             //req.getRequestDispatcher("/");
         }
         else{
