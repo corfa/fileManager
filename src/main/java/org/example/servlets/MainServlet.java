@@ -31,12 +31,12 @@ public class MainServlet extends HttpServlet {
 
         if (path == null) {
             checkDir(userName);
-            path = "C:/Users/ivanw/Desktop/filemanager/" + userName;
+            path = "C:/Users/Admin/IdeaProjects/fileManager/repa/" + userName;
         }
 
 
         if (!checkOwner(path, userName)){
-            path = "C:/Users/ivanw/Desktop/filemanager/" + userName;
+            path = "C:/Users/Admin/IdeaProjects/fileManager/repa/" + userName;
             req.getRequestDispatcher("mypage.jsp").forward(req, resp);
             System.out.println("not owner");
         }
@@ -100,16 +100,16 @@ public class MainServlet extends HttpServlet {
         return "";
     }
     private void checkDir(String userName){
-        Path path = Paths.get("C:/Users/ivanw/Desktop/filemanager/"+userName);
+        Path path = Paths.get("C:/Users/Admin/IdeaProjects/fileManager/repa/"+userName);
         if(!Files.exists(path)){
-        File directory = new File("C:/Users/ivanw/Desktop/filemanager/"+userName);
+        File directory = new File("C:/Users/Admin/IdeaProjects/fileManager/repa/"+userName);
         directory.mkdir();
     }
     }
     private boolean checkOwner(String path,String userName){
 
 
-        if (path.contains("C:/Users/ivanw/Desktop/filemanager/"+userName)){
+        if (path.contains("C:/Users/Admin/IdeaProjects/fileManager/repa/"+userName)){
             return true;
         }
         else{
