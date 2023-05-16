@@ -13,7 +13,7 @@ public class ExitServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        eraseCookie(req,resp);
+        eraseCookie(req, resp);
         req.getRequestDispatcher("aut.jsp").forward(req, resp);
 
 
@@ -24,29 +24,11 @@ public class ExitServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie c : cookies) {
                 if ("UserName".equals(c.getName())) {
-                    System.out.println(c.getValue());
-                    c.setValue("");
-                    System.out.println(c.getValue());
-                    System.out.println("cooki drop");
-
-
+                    c.setMaxAge(0);
+                    resp.addCookie(c);
+                    break;
                 }
             }
         }
-
-
     }
-//    private String checkCookie(Cookie[] cookies) {
-//        if (cookies != null) {
-//            for (Cookie c : cookies) {
-//                if ("UserName".equals(c.getName())) {
-//
-//                    return c.setValue("");
-//
-//
-//                }
-//            }
-//        }
-//        return "";
-//    }
 }

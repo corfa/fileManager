@@ -32,7 +32,6 @@ public class DataBase {
         ResultSet resultSet = preparedStatement.executeQuery();
         String  id="";
         while(resultSet.next()){
-            System.out.println();
             id = resultSet.getString("userName");
         }
 

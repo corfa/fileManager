@@ -24,7 +24,7 @@ public class MainServlet extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookie = req.getCookies();
         String userName=checkCookie(cookie);
-        if (userName.length()==0){
+        if (userName == null){
             req.getRequestDispatcher("/aut").forward(req, resp);
         }
         String path = req.getParameter("path");
@@ -91,20 +91,20 @@ public class MainServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie c : cookies) {
                 if ("UserName".equals(c.getName())) {
-
                     return c.getValue();
-
                 }
             }
         }
-        return "";
+        return null;
     }
+
     private void checkDir(String userName){
         Path path = Paths.get("C:/Users/Admin/IdeaProjects/fileManager/repa/"+userName);
         if(!Files.exists(path)){
         File directory = new File("C:/Users/Admin/IdeaProjects/fileManager/repa/"+userName);
         directory.mkdir();
     }
+
     }
     private boolean checkOwner(String path,String userName){
 
